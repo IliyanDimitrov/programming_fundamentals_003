@@ -53,27 +53,27 @@ const catalogue = [
   },
   {
     title: "Wolf Hall",
-    author: " Hilary Mantel",
+    author: "Hilary Mantel",
     quantity: 33 
   },
   {
     title: "Bring Up The Bodies",
-    author: " Hilary Mantel",
+    author: "Hilary Mantel",
     quantity: 31 
   },
   {
     title: "A Place of Greater Safety",
-    author: " Hilary Mantel",
+    author: "Hilary Mantel",
     quantity: 11 
   },
   {
     title: "Giving Up the Ghost",
-    author: " Hilary Mantel",
+    author: "Hilary Mantel",
     quantity: 8 
   },
   {
     title: "The Assassination of Margaret Thatcher",
-    author: " Hilary Mantel",
+    author: "Hilary Mantel",
     quantity: 43 
   },
   {
@@ -147,27 +147,81 @@ Will use this to make my catalogue an object one
 
 
 function countBooksByAuthor(author) {
-  // Your code here
+  
+  let total = 0;
+
+  for(let books of catalogue){
+
+    if(books.author === author){
+      total++;
+    }
+  }
+  return total;
 }
 
 function checkBookByTitle(title) {
-  // Your code here
+
+  let match = false;
+
+  for(let books of catalogue){
+
+    if(books.title === title){
+      match = true;
+    }
+  }
+  return match;
 }
 
 function countBooksByFirstLetter(letter) {
-  // Your code here
+  
+  let total = 0;
+
+  for(let books of catalogue){
+
+    if(books.title[0].toLowerCase() === letter.toLowerCase()){
+      total++;
+    }
+  }
+  return total;
 }
 
 function getQuantity(title) {
-  // Your code here
+
+  let total = 0;
+
+  for(let books of catalogue){
+
+    if(books.title.toLowerCase() === title.toLowerCase()){
+      total += books.quantity;
+    }
+  }
+  return total;
 }
 
 function getBooksByAuthor(author) {
-  // Your code here
+
+  let matchedBooksByAuthor = [];
+
+  for(let books of catalogue){
+
+    if(books.author.toLowerCase() === author.toLowerCase()){
+      matchedBooksByAuthor.push(books);
+    }
+  }
+  return matchedBooksByAuthor;
 }
 
 function checkQuantity(title, quantity) {
-  // Your code here
+  
+  let match = false;
+
+  for(let books of catalogue){
+
+    if(books.title === title && books.quantity >= quantity){
+      match = true;
+    }
+  }
+  return match;
 }
 
 module.exports = {
