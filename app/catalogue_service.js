@@ -1,17 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 
-
-/* Exercise 002 code
-
-
-Want to reuse and refactor some of the code from yesterday so that the catalogue of
-strings become catalogue of object
-
- */
-
 //Exercise 003
 
-/* const catalogue = [
+const catalogue = [
   "The Catcher in the Rye by J.D. Salinger (10)",
   "Dracula by Bram Stoker (0)",
   "Between the Assassinations by Aravind Adiga (9)",
@@ -32,10 +23,55 @@ strings become catalogue of object
   "The Blind Assassin by Margaret Atwood (8)",
   "Why Be Happy When You Could Be Normal? by Jeanette Winterson (19)",
   "The Origin of Species by Charles Darwin (50)"
-]; */
+];
 
 
-const catalogue = [
+//Functions to extract the information I need from the book strings
+
+const authorName = (book) => {
+
+  let authorNameStartIndex = book.indexOf("by") + 3;
+
+  let authorFirstNameEndIndex = book.indexOf(" ", authorNameStartIndex) + 1;
+
+  let authorSecondNameEndIndex = book.indexOf(" ", authorFirstNameEndIndex);
+
+  let author = book.substring(authorNameStartIndex,  authorSecondNameEndIndex);
+ 
+  return author;
+}
+
+const bookTitle = (book) => {
+
+  let bookTitleEnd = book.indexOf("by") - 1;
+
+  let title = book.substring(0,  bookTitleEnd);
+ 
+  return title;
+}
+
+
+const bookQuantity = (book) => {
+
+  let quantityStringStart = book.indexOf("(") + 1;
+
+  let quantityStringEnd = book.indexOf(")");
+
+  let quantity = parseInt(book.substring(quantityStringStart,  quantityStringEnd));
+ 
+  return quantity;
+}
+
+//Will use this to make my string catalogue an object one
+
+const objCatalogue = catalogue.map(book => {
+
+return ({"title": bookTitle(book), "author": authorName(book), "quantity": bookQuantity(book)});
+
+});
+
+
+/* const catalogue = [
   {
     title: "The Catcher in the Rye",
     author: "J.D. Salinger",
@@ -136,7 +172,7 @@ const catalogue = [
     author: "Charles Darwin",
     quantity: 50
   }
-];
+]; */
 
 /* const catalogueOfObj = catalogue.reduce((acc, bookString) => {
 
@@ -150,7 +186,7 @@ function countBooksByAuthor(author) {
   
   let total = 0;
 
-  for(let books of catalogue){
+  for(let books of objCatalogue){
 
     if(books.author === author){
       total++;
@@ -163,7 +199,7 @@ function checkBookByTitle(title) {
 
   let match = false;
 
-  for(let books of catalogue){
+  for(let books of objCatalogue){
 
     if(books.title === title){
       match = true;
@@ -176,7 +212,7 @@ function countBooksByFirstLetter(letter) {
   
   let total = 0;
 
-  for(let books of catalogue){
+  for(let books of objCatalogue){
 
     if(books.title[0].toLowerCase() === letter.toLowerCase()){
       total++;
@@ -189,7 +225,7 @@ function getQuantity(title) {
 
   let total = 0;
 
-  for(let books of catalogue){
+  for(let books of objCatalogue){
 
     if(books.title.toLowerCase() === title.toLowerCase()){
       total += books.quantity;
@@ -202,7 +238,7 @@ function getBooksByAuthor(author) {
 
   let matchedBooksByAuthor = [];
 
-  for(let books of catalogue){
+  for(let books of objCatalogue){
 
     if(books.author.toLowerCase() === author.toLowerCase()){
       matchedBooksByAuthor.push(books);
@@ -215,7 +251,7 @@ function checkQuantity(title, quantity) {
   
   let match = false;
 
-  for(let books of catalogue){
+  for(let books of objCatalogue){
 
     if(books.title === title && books.quantity >= quantity){
       match = true;
